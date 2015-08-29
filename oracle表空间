@@ -1,0 +1,24 @@
+---
+title: oracle表空间
+tags: 新建,模板,小书匠
+grammar_cjkRuby: true
+---
+
+### 创建字典管理的表空间
+```
+create tablespace james datafile '/opt/oradata/orcl/james01.dbf' size 50 M,
+       '/opt/oradata/orcl/james02.dbf' size 50 M 
+        minimum extent 50k extent management dictionary
+        default storage (initial 50k next 50k maxextents 100 pctincrease 0);
+```
+
+ORA-12913,无法创建字典管理的表空间
+因为9.2开始，如果SYSTEM的表空间为LOCAL本地管理，ORACLE不允许再创建字典管理的表空间,此时要去掉extent management dictionary
+### 查看表空间
+```
+select tablespace_name,block_size,extent_management,segment_space_management from dba_tablespaces;
+```
+### 查看表空间文件
+```
+select file_id,file_name,tablespace_name from dba_data_files order by file_id;
+```
