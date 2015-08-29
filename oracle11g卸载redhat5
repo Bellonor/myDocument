@@ -1,0 +1,73 @@
+---
+title: oracle11g卸载redhat5
+tags: oracle,卸载,redhat5,rhel
+grammar_cjkRuby: true
+---
+
+#### 1.使用SQL*PLUS停止数据库
+```
+[oracle@OracleTest oracle]$ sqlplus log
+SQL> connect / as sysdba
+SQL> shutdown [immediate]
+SQL> exit
+```
+
+#### 2.停止Listener
+```
+[oracle@OracleTest oracle]$ lsnrctl stop
+```
+
+#### 3.停止HTTP服务
+```
+[root@OracleTest /root]# service httpd stop
+```
+
+#### 4.用su或者重新登录到root(如想重新安装可以保留oracle用户，省得输入环境变量了)
+
+
+#### 5.将安装目录删除
+```
+[root@OracleTest /root]# rm -rf /u01/oracle/
+[root@OracleTest /root]# rm -rf /u01/oraInventory/
+```
+
+#### 6.将/usr/bin下的文件删除
+```
+[root@OracleTest /root]# rm /usr/local/bin/dbhome
+[root@OracleTest /root]# rm /usr/local/bin/oraenv
+[root@OracleTest /root]# rm /usr/local/bin/coraenv
+```
+
+#### 7.将/etc/oratab删除
+```
+[root@OracleTest /root]# rm /etc/oratab
+```
+
+#### 8.将/etc/oraInst.loc删除
+```
+[root@OracleTest /root]# rm /etc/oraInst.loc
+```
+
+#### 9.将oracle用户删除(若要重新安装,可以不删除)
+```
+[root@OracleTest /root]# userdel –r oracle
+```
+
+#### 10.将用户组删除(若要重新安装,可以不删除)
+```
+[root@OracleTest /root]# groupdel oinstall
+[root@OracleTest /root]# groupdel dba
+```
+
+#### 11.将启动服务删除
+```
+[root@OracleTest /root]# chkconfig --del dbora
+```
+到此为止重启后，你的Linux系统下的Oracle数据库已完全删除了！！！
+
+以上是CentOS5.4+Oracle 11g的环境。
+
+
+如果要再次安装， 最好先做一些备份工作。
+包括用户的登录脚本，数据库自动启动关闭的脚本，和Listener自动启动的脚本。
+要是有可能连创建数据库的脚本也保存下来。
