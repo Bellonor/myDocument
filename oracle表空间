@@ -22,3 +22,10 @@ select tablespace_name,block_size,extent_management,segment_space_management fro
 ```
 select file_id,file_name,tablespace_name from dba_data_files order by file_id;
 ```
+### 创建本地管理的表空间
+```
+create tablespace james_index 
+ datafile '/opt/oradata/orcl/james_index.dbf' size 50 M 
+    extent management local
+    uniform size 1M
+```
