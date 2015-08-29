@@ -1,0 +1,47 @@
+---
+title:    oracle redo管理 
+tags: 新建,模板,小书匠
+grammar_cjkRuby: true
+---
+
+###  1.分类 
+Oracle中的几类日志文件
+
+Redo log files -->联机重做日志
+
+Archive log files -->归档日志
+
+Alert log files -->告警日志
+
+Trace files -->跟踪日志
+
+user_dump_dest -->用户跟踪日志
+
+backupground_dump_dest -->进程跟踪日志
+### 2.操作
+查看redo组
+```
+SELECT group#,sequence#,members,bytes,status,archived FROM v$log;
+```
+
+查看redo组内成员的明细
+```select * from v$logfile```
+添加组
+```
+alter  database add  logfile group 4 ('/opt/oradata/orcl/redo04.log') size 52428800;
+```
+删除组
+```
+alter database drop logfile group 4;
+```
+添加成员
+````
+ALTER DATABASE ADD LOGFILE MEMBER '/opt/oradata/orcl/redo04a.log' TO GROUP 4;
+
+```
+
+警告日志
+```
+select * from v$diag_info;
+```
+
