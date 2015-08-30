@@ -5,4 +5,37 @@ grammar_cjkRuby: true
 ---
 
 
-欢迎使用 **{小书匠}(xiaoshujiang)编辑器**，您可以通过==设置==里的修改模板来改变新建文章的内容。
+### 创建分区表
+```
+CREATE TABLE TABLE_PARTITION(  
+       COL1   NUMBER,  
+       COL2   VARCHAR2(100)  
+)  
+partition by range(COL1)(  
+          partition TAB_PARTOTION_01 values less than (450000),  
+          partition TAB_PARTOTION_02 values less than (900000),  
+          partition TAB_PARTOTION_03 values less than (1350000),  
+          partition TAB_PARTOTION_04 values less than (1800000),  
+          partition TAB_PARTOTION_OTHER values less THAN (MAXVALUE)  
+); 
+```
+### 插入测试数据
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(1,'数据测试');
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(23,'数据测试');
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(449000,'数据测试');
+ 
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(450000,'数据测试');
+ 
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(1350000,'数据测试');
+ 
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(900000,'数据测试'); 
+ 
+INSERT INTO TABLE_PARTITION(COL1,COL2)
+VALUES(1800000-1,'数据测试');
+COMMIT;
