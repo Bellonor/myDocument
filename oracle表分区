@@ -3,9 +3,13 @@ title: oracle表分区
 tags: 新建,模板,小书匠
 grammar_cjkRuby: true
 ---
-
-
-### 创建分区表
+oracel表分区基本上可以分成几类：
+- Range(范围)分区
+- Hash(哈希)分区
+- List(列表)分区
+- 组合分区：Range-Hash, Range-List 。
+## 1.Range(范围)分区
+### 1.1创建分区表
 ```
 CREATE TABLE TABLE_PARTITION(  
        COL1   NUMBER,  
@@ -19,7 +23,7 @@ partition by range(COL1)(
           partition TAB_PARTOTION_OTHER values less THAN (MAXVALUE)  
 ); 
 ```
-### 插入测试数据
+### 1.2插入测试数据
 INSERT INTO TABLE_PARTITION(COL1,COL2)
 VALUES(1,'数据测试');
 INSERT INTO TABLE_PARTITION(COL1,COL2)
